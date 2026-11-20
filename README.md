@@ -28,6 +28,6 @@ O objetivo deste projeto é aplicar na prática os conceitos essenciais de Gerê
 ## 🌿 Estrutura de Branches
 
 - **`main`**: Código em produção (versão estável/final `v1.0`).
-- **`release`**: Branch de preparação e testes para a versão final.
+- **`release`**: Branch de preparação e testes para a versão final.(não vamos usar neste projeto)
 - **`development`**: Branch base para integração das funcionalidades desenvolvidas pela equipe.
 - **`feature/*`**: Branches individuais criadas por cada integrante para o desenvolvimento de suas tarefas.
