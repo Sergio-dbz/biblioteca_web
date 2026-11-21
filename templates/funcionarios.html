@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Funcionários - Biblioteca App{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">Cadastrar Novo Funcionário</div>
+    <form method="POST">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="nome">Nome Completo</label>
+                <input type="text" name="nome" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="cargo">Cargo</label>
+                <input type="text" name="cargo" class="form-control" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" name="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="cpf">CPF</label>
+                <input type="text" name="cpf" class="form-control" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="telefone">Telefone</label>
+                <input type="tel" name="telefone" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="senha">Senha</label>
+                <input type="password" name="senha" class="form-control" required>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </form>
+</div>
+
+<div class="card">
+    <div class="card-header">Funcionários Cadastrados</div>
+    <div class="table-wrapper">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Cargo</th>
+                    <th>Email</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for func in funcionarios %}
+                <tr>
+                    <td>{{ func.ID_funcionario }}</td>
+                    <td>{{ func.nome }}</td>
+                    <td>{{ func.cargo }}</td>
+                    <td>{{ func.email }}</td>
+                    <td class="table-actions">
+                        <!-- LINHA ADICIONADA -->
+                        <a href="{{ url_for('editar_funcionario', id_funcionario=func.ID_funcionario) }}" class="btn btn-secondary btn-sm" title="Editar"><i class="fas fa-edit"></i></a>
+                        
+                        <form action="{{ url_for('excluir_funcionario', id_funcionario=func.ID_funcionario) }}" method="POST" onsubmit="return confirm('Tem certeza?');" style="display: inline;">
+                            <button type="submit" class="btn btn-danger btn-sm" title="Excluir"><i class="fas fa-trash"></i></button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
