@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Portal do Usuário - Biblioteca App{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-links">
+            <a href="{{ url_for('portal_acervo_publico') }}" class="{{ 'active' if 'acervo' in request.path else '' }}"><i class="fas fa-book"></i> Consultar Acervo</a>
+            <a href="{{ url_for('portal_meus_emprestimos') }}" class="{{ 'active' if 'emprestimos' in request.path else '' }}"><i class="fas fa-history"></i> Meus Empréstimos</a>
+        </div>
+        <div class="nav-actions">
+            <span style="color: white; margin-right: 1rem;">Olá, {{ current_user.nome }}</span>
+            <a href="{{ url_for('logout') }}" class="btn btn-danger btn-sm"><i class="fas fa-sign-out-alt"></i> Sair</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
