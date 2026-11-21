@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Usuário - Biblioteca App{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">Editando Usuário: {{ usuario.nome }}</div>
+    <form method="POST">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="nome">Nome Completo</label>
+                <input type="text" name="nome" class="form-control" value="{{ usuario.nome }}" required>
+            </div>
+            <div class="form-group">
+                <label for="cpf">CPF (não editável)</label>
+                <input type="text" name="cpf" class="form-control" value="{{ usuario.CPF }}" disabled>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" name="email" class="form-control" value="{{ usuario.email }}" required>
+            </div>
+            <div class="form-group">
+                <label for="telefone">Telefone</label>
+                <input type="tel" name="telefone" class="form-control" value="{{ usuario.telefone or '' }}">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="limite_emprestimo">Limite de Empréstimos</label>
+                <input type="number" name="limite_emprestimo" class="form-control" value="{{ usuario.limite_emprestimo }}" required>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+        <a href="{{ url_for('usuarios') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
