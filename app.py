@@ -28,7 +28,7 @@ def conectar():
         user=os.environ.get('MYSQLUSER'),         # Usuário (geralmente root)
         password=os.environ.get('MYSQLPASSWORD'), # Sua senha do Railway
         database=os.environ.get('MYSQLDATABASE'), # Nome do banco (geralmente railway)
-        port=int(os.environ.get('MYSQLPORT', 3306)) # Porta de conexão
+        port=int(os.environ.get('MYSQLPORT')) # Porta de conexão
     )
 
 # --- MODELOS DE USUÁRIO E AUTENTICAÇÃO ---
