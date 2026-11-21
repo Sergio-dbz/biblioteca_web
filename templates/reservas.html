@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Reservas - Biblioteca App{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">Gestão de Reservas</div>
+    <div class="table-wrapper">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Item Reservado</th>
+                    <th>Usuário</th>
+                    <th>Data da Reserva</th>
+                    <th>Status</th>
+                    <th>Retirar até</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reserva in reservas %}
+                <tr>
+                    <td>{{ reserva.ID_reserva }}</td>
+                    <td>{{ reserva.item_titulo }}</td>
+                    <td>{{ reserva.usuario_nome }}</td>
+                    <td>{{ reserva.data_reserva.strftime('%d/%m/%Y') }}</td>
+                    <td><span class="status status-{{ reserva.status_reserva.lower().replace(' ', '-') }}">{{ reserva.status_reserva }}</span></td>
+                    <td>{{ reserva.data_limite_retirada.strftime('%d/%m/%Y') if reserva.data_limite_retirada else 'N/A' }}</td>
+                    <td class="table-actions">
+                        {% if reserva.status_reserva != 'Concluída' %}
+                        <form action="{{ url_for('cancelar_reserva', id_reserva=reserva.ID_reserva) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja cancelar esta reserva?');">
+                            <button type="submit" class="btn btn-danger btn-sm">Cancelar</button>
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="7" style="text-align: center;">Nenhuma reserva encontrada.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
