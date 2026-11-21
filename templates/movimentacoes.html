@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Movimentações - Biblioteca App{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">Histórico de Movimentações</div>
+    <div class="table-wrapper">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Tipo</th>
+                    <th>Título do Item</th>
+                    <th>Usuário do Empréstimo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mov in movimentacoes %}
+                <tr>
+                    <td>{{ mov.data_movimentacao.strftime('%d/%m/%Y') }}</td>
+                    <td>{{ mov.tipo }}</td>
+                    <td>{{ mov.item_titulo }}</td>
+                    <td>{{ mov.usuario_nome }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center;">Nenhuma movimentação registrada.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
