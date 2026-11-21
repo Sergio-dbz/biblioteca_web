@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Empréstimo - Biblioteca App{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">Editando Empréstimo #{{ emprestimo.ID_emprestimo }}</div>
+    <form method="POST">
+        <div class="form-row">
+            <div class="form-group">
+                <label>Usuário</label>
+                <input type="text" class="form-control" value="{{ emprestimo.usuario_nome }}" disabled>
+            </div>
+            <div class="form-group">
+                <label>Funcionário Responsável</label>
+                <input type="text" class="form-control" value="{{ emprestimo.funcionario_nome }}" disabled>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="data_emprest">Data do Empréstimo</label>
+                <input type="date" name="data_emprest" class="form-control" value="{{ emprestimo.data_emprest.strftime('%Y-%m-%d') }}" required>
+            </div>
+            <div class="form-group">
+                <label for="data_dev">Data Prevista Devolução</label>
+                <input type="date" name="data_dev" class="form-control" value="{{ emprestimo.data_dev.strftime('%Y-%m-%d') }}" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="status">Status</label>
+                 <select name="status" class="form-control" required>
+                    <option value="Ativo" {% if emprestimo.status == 'Ativo' %}selected{% endif %}>Ativo</option>
+                    <option value="Finalizado" {% if emprestimo.status == 'Finalizado' %}selected{% endif %}>Finalizado</option>
+                    <option value="Atrasado" {% if emprestimo.status == 'Atrasado' %}selected{% endif %}>Atrasado</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="multa">Multa (R$)</label>
+                <input type="number" step="0.01" name="multa" class="form-control" value="{{ '%.2f'|format(emprestimo.multa|float) }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Itens neste Empréstimo (não editável)</label>
+            <ul style="list-style-type: none; padding: 1rem; background-color: #f5f7fa; border-radius: var(--border-radius);">
+                {% for item in itens_emprestimo %}
+                    <li style="padding: 0.5rem 0;">{{ item.titulo }} (ID: {{ item.ID_item }})</li>
+                {% else %}
+                    <li>Nenhum item associado.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+        <a href="{{ url_for('emprestimos') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
